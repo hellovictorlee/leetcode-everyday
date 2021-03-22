@@ -1,14 +1,5 @@
 class Solution:
     def getSkyline(self, buildings: List[List[int]]) -> List[List[int]]:
-        """
-        events list: [(x, close, h)]
-
-        hp: heap to store current height
-        if prev_x != x:
-            pop from hp
-            prev_x = x
-
-        """
         events = []
         for l, r, h in buildings:
             events.append((l, -h, 0))  # close is False
@@ -19,7 +10,6 @@ class Solution:
         hp = Heap(-neg_h)
         ans = [[x, -neg_h]]
         for x, h, close in events[1:]:
-            print(hp, f'maxVal: {hp.max()}')
             if close == 1:
                 height = h
                 hp.remove(height)
@@ -68,9 +58,3 @@ class Heap:
             if not self.hp:
                 break
             val = -self.hp[0]
-
-    def __str__(self):
-        if not self.hp:
-            return '' + '   ' + str(self.del_list)
-        a = ', '.join([str(i) for i in self.hp])
-        return a + '   ' + str(self.del_list)
